@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class UserInsertDto extends UserDto{
 
     private String password;

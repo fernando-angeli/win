@@ -33,7 +33,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     private static final String[] OPERATOR_OR_ADMIN = {"/users/**"};
 
-    private static final String[] ADMIN = {"/teste"};
+    private static final String[] ADMIN = {"/users/**"};
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception{
@@ -42,6 +42,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception{
+
+        // Libera o H2 quando o perfil ativo é o de "test"
         if(Arrays.asList(environment.getActiveProfiles()).contains("test"))
             http.headers().frameOptions().disable();
 
