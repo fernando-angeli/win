@@ -7,12 +7,18 @@ import com.fernando.win.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -34,6 +40,18 @@ public class UserService implements UserDetailsService {
         return new UserDto(entity);
     }
 
+    @Transactional(readOnly = true)
+    public Page<UserDto> findAllPageable(Pageable pageable) {
+        Page<User> users = repository.findAll(pageable);
+        return users.map(UserDto::new);
+    }
+
+    public UserDto findById(Integer id) {
+        Optional<User> obj = repository.findById(id);
+        User entity = obj.orElseThrow(() -> new ResourceNotFoundException("Id " + id + " não encontrado."));
+        return new UserDto(entity);
+    }
+
     public void copyDtoToEntity(UserDto dto, User entity){
         entity.setName(dto.getName());
         entity.setEmail(dto.getEmail());
@@ -49,5 +67,7 @@ public class UserService implements UserDetailsService {
         logger.info("Usuário encontrado: " + username);
         return user;
     }
+
+
 
 }

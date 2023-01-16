@@ -1,12 +1,8 @@
 package com.fernando.win.dto;
 
 import com.fernando.win.domain.User;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import lombok.*;
+import javax.validation.constraints.*;
 
 @Data
 @NoArgsConstructor
