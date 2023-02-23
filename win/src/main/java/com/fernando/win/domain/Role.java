@@ -11,9 +11,8 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Role {
 
     @Id
